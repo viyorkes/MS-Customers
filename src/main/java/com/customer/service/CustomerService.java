@@ -6,8 +6,8 @@ import com.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CustomerService {
@@ -21,4 +21,9 @@ public class CustomerService {
     }
 
 
+    public Optional<Customer> findCustomer(int id) {
+         return customerRepository.findById(id);
+
+
+    }
 }

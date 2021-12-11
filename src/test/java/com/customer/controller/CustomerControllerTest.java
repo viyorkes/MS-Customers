@@ -28,7 +28,7 @@ public class CustomerControllerTest {
         customer.setBirthDate(new Date());
         customer.setName("teste");
         customer.setSalary(new BigDecimal( 150));
-        
+
         Iterable<Customer> customers = customerRepository.findAll();
         assertThat(customer).isNotNull();
 

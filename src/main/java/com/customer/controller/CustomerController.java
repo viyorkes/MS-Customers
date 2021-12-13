@@ -26,6 +26,13 @@ public class CustomerController {
     }
 
 
+    @GetMapping("/customer/departaments")
+    public List<String> retrieveAllDepartaments(){
+        return customerService.findAllDepartaments();
+
+    }
+
+
     @GetMapping("/customer/{id}")
     public Optional<Customer> retrieveCustomer(@PathVariable int id) {
       return customerService.findCustomer(id);
@@ -48,10 +55,6 @@ public class CustomerController {
     public void deleteUser(@PathVariable int id) {
         customerService.deleteById(id);
     }
-
-
-
-
-
+    
 }
 

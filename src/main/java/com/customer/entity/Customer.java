@@ -24,6 +24,7 @@ public class Customer {
     private int Id;
     private String name;
     private Date birthDate;
+    private String departament;
     private BigDecimal salary;
 
 }

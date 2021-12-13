@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class CustomerService {
@@ -24,17 +24,31 @@ public class CustomerService {
       return customerRepository.findAll();
     }
 
+    public List<String> findAllDepartaments() {
+
+
+        List<Customer> customer = customerRepository.findAll();
+
+        List<String> result =
+                customer.stream()
+                        .map(Customer::getDepartament)
+                        .distinct()
+                        .collect(Collectors.toList());
+
+        return result;
+
+
+    }
+
 
     public Optional<Customer> findCustomer(int id) {
          return customerRepository.findById(id);
-
 
     }
 
     public Customer saveCustomer(Customer customer) {
 
         return customerRepository.save(customer);
-
 
     }
 

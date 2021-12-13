@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,12 @@ public class CustomerController {
     @GetMapping("/customer/departaments")
     public List<String> retrieveAllDepartaments(){
         return customerService.findAllDepartaments();
+
+    }
+
+    @GetMapping("/customer/payrollSum")
+    public BigDecimal retrieveAllPayrollSum(){
+        return customerService.getPayrollSum();
 
     }
 
@@ -55,6 +62,6 @@ public class CustomerController {
     public void deleteUser(@PathVariable int id) {
         customerService.deleteById(id);
     }
-    
+
 }
 

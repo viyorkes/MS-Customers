@@ -6,6 +6,7 @@ import com.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,9 +27,7 @@ public class CustomerService {
 
     public List<String> findAllDepartaments() {
 
-
         List<Customer> customer = customerRepository.findAll();
-
         List<String> result =
                 customer.stream()
                         .map(Customer::getDepartament)
@@ -37,6 +36,18 @@ public class CustomerService {
 
         return result;
 
+    }
+
+
+    public BigDecimal getPayrollSum() {
+
+        List<Customer> customer = customerRepository.findAll();
+
+        BigDecimal sum = customer.stream()
+                .map(x -> x.getSalary())    // map
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        return sum;
 
     }
 

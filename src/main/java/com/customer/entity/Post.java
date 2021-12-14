@@ -1,5 +1,6 @@
 package com.customer.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Post {
     private  String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Customer customer;
 
 }

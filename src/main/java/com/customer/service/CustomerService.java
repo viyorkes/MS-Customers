@@ -2,6 +2,7 @@ package com.customer.service;
 
 
 import com.customer.entity.Customer;
+import com.customer.entity.Post;
 import com.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -77,6 +78,15 @@ public class CustomerService {
 
     public void deleteById(int id) {
         customerRepository.deleteById(id);
+
+    }
+
+    public List<Post> findCustomerPosts(int id) {
+
+        Optional<Customer> customerOP = customerRepository.findById(id);
+
+
+        return customerOP.get().getPosts();
 
     }
 }

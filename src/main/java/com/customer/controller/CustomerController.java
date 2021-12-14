@@ -2,6 +2,7 @@ package com.customer.controller;
 
 
 import com.customer.entity.Customer;
+import com.customer.entity.Post;
 import com.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,12 @@ public class CustomerController {
     @GetMapping("/customer/maxSalary")
     public Customer retrieveAMaxSalary(){
         return customerService.getMaxSalary();
+
+    }
+
+    @GetMapping("/customer/{id}/posts")
+    public  List<Post>  retrievePostsFromCustomer(@PathVariable int id) {
+        return customerService.findCustomerPosts(id);
 
     }
 

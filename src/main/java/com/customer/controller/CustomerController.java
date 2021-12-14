@@ -39,6 +39,12 @@ public class CustomerController {
 
     }
 
+    @GetMapping("/customer/maxSalary")
+    public Customer retrieveAMaxSalary(){
+        return customerService.getMaxSalary();
+
+    }
+
 
     @GetMapping("/customer/{id}")
     public Optional<Customer> retrieveCustomer(@PathVariable int id) {

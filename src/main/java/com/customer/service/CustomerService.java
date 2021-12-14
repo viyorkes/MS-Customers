@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -48,6 +46,20 @@ public class CustomerService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return sum;
+
+    }
+
+
+    public Customer getMaxSalary() {
+
+        List<Customer> customer = customerRepository.findAll();
+
+        Customer maxSalary = customer
+                .stream()
+                .max(Comparator.comparing(Customer::getSalary))
+                .orElseThrow(NoSuchElementException::new);
+
+        return maxSalary;
 
     }
 

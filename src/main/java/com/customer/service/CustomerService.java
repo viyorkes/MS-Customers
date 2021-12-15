@@ -4,10 +4,14 @@ package com.customer.service;
 import com.customer.entity.Customer;
 import com.customer.entity.Post;
 import com.customer.repository.CustomerRepository;
+import com.customer.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,6 +21,13 @@ public class CustomerService {
 
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    PostRepository postRepository;
+
+
+
+
 
     private static List<Customer> customers = new ArrayList<>();
 
@@ -87,6 +98,22 @@ public class CustomerService {
 
 
         return customerOP.get().getPosts();
+
+    }
+
+    public ResponseEntity<Object> createPost(int id,Post post) {
+
+
+        Optional<Customer> customerOP = customerRepository.findById(id);
+
+        Customer customer = customerOP.get();
+        post.setCustomer(customer);
+        postRepository.save(post);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
 
     }
 }

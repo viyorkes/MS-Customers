@@ -21,6 +21,9 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+
+
+
     @GetMapping("/customers")
     public List<Customer> retrieveAllCustomers(){
         return customerService.findAllCustomers();
@@ -70,6 +73,16 @@ public class CustomerController {
         return ResponseEntity.created(location).build();
 
     }
+
+
+
+    @PostMapping("/customer/{id}/posts")
+    public ResponseEntity<Object> createPost(@PathVariable int id, @RequestBody Post post) {
+
+    return customerService.createPost(id,post);
+
+    }
+
 
     @DeleteMapping("/deleteCustomer/{id}")
     public void deleteUser(@PathVariable int id) {

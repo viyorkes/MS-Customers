@@ -5,6 +5,8 @@ import com.customer.entity.Customer;
 import com.customer.entity.Post;
 import com.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -13,6 +15,9 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class CustomerController {
@@ -57,7 +62,8 @@ public class CustomerController {
 
 
     @GetMapping("/customer/{id}")
-    public Optional<Customer> retrieveCustomer(@PathVariable int id) {
+    public EntityModel<Customer>retrieveCustomer(@PathVariable int id) {
+
       return customerService.findCustomer(id);
 
     }

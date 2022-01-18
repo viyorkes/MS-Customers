@@ -6,6 +6,8 @@ import com.customer.entity.Post;
 import com.customer.repository.CustomerRepository;
 import com.customer.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,6 +16,9 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 public class CustomerService {
@@ -76,8 +81,19 @@ public class CustomerService {
     }
 
 
-    public Optional<Customer> findCustomer(int id) {
-         return customerRepository.findById(id);
+    public EntityModel<Customer> findCustomer(int id) {
+
+
+
+        Optional<Customer> customer = customerRepository.findById(id);
+
+        EntityModel<Customer> resource = EntityModel.of(customer.get());
+
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).findAllCustomers());
+
+        resource.add(linkTo.withRel("all-users"));
+
+        return resource;
 
     }
 

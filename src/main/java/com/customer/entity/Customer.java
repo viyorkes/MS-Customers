@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,10 @@ public class Customer {
     @Id
     @GeneratedValue
     private int Id;
+
+    @Size(min=2, message="name should have atleast 2 characters")
     private String name;
+
     private Date birthDate;
     private String departament;
     private BigDecimal salary;

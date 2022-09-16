@@ -3,6 +3,7 @@ package com.customer.service;
 
 import com.customer.entity.Customer;
 import com.customer.entity.Post;
+import com.customer.exception.UserNotFoundException;
 import com.customer.repository.CustomerRepository;
 import com.customer.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,6 @@ public class CustomerService {
 
     @Autowired
     PostRepository postRepository;
-
-
-
 
 
     private static List<Customer> customers = new ArrayList<>();
@@ -82,10 +80,12 @@ public class CustomerService {
 
 
     public EntityModel<Customer> findCustomer(int id) {
-
-
-
         Optional<Customer> customer = customerRepository.findById(id);
+
+        if (customer == null || customer.isEmpty())
+            throw new UserNotFoundException(id + "id");
+
+
 
         EntityModel<Customer> resource = EntityModel.of(customer.get());
 

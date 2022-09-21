@@ -6,18 +6,16 @@ import com.customer.entity.Post;
 import com.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class CustomerController {
@@ -69,7 +67,7 @@ public class CustomerController {
 
 
     @PostMapping("/createCustomer")
-    public ResponseEntity<Object> createUser( @RequestBody Customer customer) {
+    public ResponseEntity<Customer> createUser(@Valid @RequestBody Customer customer) {
         Customer savedUser = customerService.saveCustomer(customer);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId())

@@ -8,3 +8,5 @@ target/
 mvnw.cmd
 
 mvnw
+
+.DS_Store
